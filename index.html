@@ -7,7 +7,7 @@
 <meta name="description" content="A 90-second film of EPDesk with voiceover and subtitles: Sara uploads the list of materials for a bid and gets every EPD back in one file.">
 <meta property="og:type" content="video.other">
 <meta property="og:title" content="EPDesk pilot film">
-<meta property="og:description" content="From bid to EPD pack in minutes. A 90-second film with voiceover and subtitles.">
+<meta property="og:description" content="From bid to EPD in seconds. A 90-second film with voiceover and subtitles.">
 <meta property="og:url" content="https://epdesk.github.io/film/">
 <meta property="og:image" content="https://epdesk.github.io/film/og.png">
 <meta property="og:image:width" content="1200">
@@ -37,17 +37,17 @@
 [hidden]{display:none!important}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f);font-size:15px;line-height:1.55;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:26px 56px;display:grid;gap:18px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:26px 56px;display:grid;gap:22px}
 .top{display:flex;align-items:center;gap:10px}
 .logo{font-weight:600;font-size:21px;display:flex;align-items:center;gap:9px;color:var(--navy)}
 .logo svg{width:28px;height:28px;flex:none}
 .logo b{color:var(--accent);font-weight:600}
 .eyebrow{display:inline-block;justify-self:start;font-size:12.5px;font-weight:500;color:var(--accent);background:var(--accent-soft);padding:3px 12px;border-radius:999px}
-h1{font-size:30px;font-weight:600;line-height:1.2;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:34px;font-weight:600;line-height:1.2;margin:4px 0 0;text-wrap:balance;letter-spacing:-.01em}
 p{margin:0}
 .intro{display:grid;gap:8px;max-width:72ch}
 .intro p{color:var(--muted)}
-.player{margin:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface);display:grid;box-shadow:0 20px 60px rgba(30,35,80,.08)}
+.player{margin:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface);display:grid;grid-template-columns:minmax(0,1fr);box-shadow:0 20px 60px rgba(30,35,80,.08)}
 .screen{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#fbfbfd;cursor:pointer;max-width:100%}
 .bigplay{position:absolute;left:50%;top:50%;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;border:0;background:#f2435a;color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 0 0 12px rgba(242,67,90,.14),0 14px 34px rgba(242,67,90,.35);z-index:3}
 .bigplay svg{width:34px;height:34px;margin-left:4px}
@@ -300,11 +300,7 @@ input[type=range]{flex:1;min-width:0;accent-color:var(--accent);height:24px}
 
 <div class="wrap">
   <div class="top"><div class="logo"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#1e2350"/><path d="M21 13h16l10 10v27a3 3 0 0 1-3 3H21a3 3 0 0 1-3-3V16a3 3 0 0 1 3-3z" fill="#fff"/><path d="M37 13v10h10z" fill="#f2435a"/><path d="M25 37l5.5 5.5L41 31" fill="none" stroke="#f2435a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>EP</b>Desk</span></div></div>
-  <div class="intro">
-    <span class="eyebrow">Pilot film · 1:30 · voiceover</span>
-    <h1>From bid to EPD pack in minutes</h1>
-    <p>Sara uploads the list of materials for a bid, EPDesk finds the EPDs, and she downloads one file with everything the client asked for.</p>
-  </div>
+  <h1>From bid to EPD in seconds</h1>
 
   <figure class="player" id="player">
     <div class="screen" id="screen" role="img" aria-label="Animated film of EPDesk: Sara, a bid manager, gets a tender for a hydrogen project that asks for a verified EPD for every product. Searching by hand takes hours. She uploads the list of materials, EPDesk reads the requirements and finds the EPDs, gaps are fixed with a renewed EPD and a drafted supplier request, and a zip with the EPDs, the bid and a report is downloaded.">
@@ -523,8 +519,6 @@ input[type=range]{flex:1;min-width:0;accent-color:var(--accent);height:24px}
   <audio id="vo" preload="auto"></audio>
   <p class="subline" id="subline" aria-live="off"></p>
 
-  <ol class="chapters" id="chapters"></ol>
-  <p class="fine">AI voiceover (ElevenLabs) with subtitles. It plays muted until you turn the sound on. Sara, the bid, the installer and several products are invented for the demo.</p>
 </div>
 
 <script>
@@ -849,8 +843,7 @@ let t=0,playing=false,raf=0,last=0;
 const fmtT=s=>{s=Math.floor(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
 const ICON_PLAY='<path d="M6 4l15 8-15 8z" fill="currentColor"/>',ICON_PAUSE='<path d="M6 4h4v16H6zM14 4h4v16h-4z" fill="currentColor"/>',ICON_REPLAY='<path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z" fill="currentColor"/>';
 const chEls=[];
-$('#chapters').innerHTML=CHAPTERS.map((c,i)=>'<li><button class="chap" data-ch="'+i+'"><span>'+fmtT(c[1])+'</span>'+c[0]+'</button></li>').join('');
-document.querySelectorAll('.chap').forEach(b=>chEls.push(b));
+
 let dragging=false;
 function ui(){
   $('#time').textContent=fmtT(t)+' / '+fmtT(T);
@@ -904,7 +897,7 @@ screen.addEventListener('click',()=>playing?pause():play());
 const sc=$('#scrub');
 sc.addEventListener('input',()=>{dragging=true;seek(+sc.value/10);});
 sc.addEventListener('change',()=>{dragging=false;});
-$('#chapters').addEventListener('click',e=>{const b=e.target.closest('.chap');if(!b)return;seek(CHAPTERS[+b.dataset.ch][1]);play();});
+
 document.addEventListener('keydown',e=>{
   if(e.target.closest&&e.target.closest('input,textarea,button,a,select'))return;
   if(e.key===' '||e.key==='k'){e.preventDefault();playing?pause():play();}
