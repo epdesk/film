@@ -14,9 +14,9 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="noindex">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="preload" href="fonts/poppins-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<script>try{if(new URLSearchParams(location.search).has("embed"))document.documentElement.classList.add("embed")}catch(e){}</script>
 <style>
 /* Page: a film player. One 16:9 stage drawn at 1280x720 and scaled to fit, controls under it, chapters below.
    The stage keeps its own light look in both themes. */
@@ -292,6 +292,12 @@ input[type=range]{flex:1;min-width:0;accent-color:var(--accent);height:24px}
 /* cursor */
 #cur{left:0;top:0;width:30px;height:38px;z-index:20;filter:drop-shadow(0 4px 6px rgba(30,35,80,.25))}
 #ring{left:0;top:0;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:3px solid var(--coral);z-index:19}
+
+/* ?embed=1: only the player, edge to edge, for the landing page */
+html.embed body{background:transparent;margin:0}
+html.embed .wrap{max-width:none;padding:0;margin:0;gap:0}
+html.embed .wrap>.top,html.embed .wrap>h1{display:none}
+html.embed .player{border:0;border-radius:0;box-shadow:none;margin:0}
 </style>
 </head>
 <body>
@@ -913,7 +919,9 @@ const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').m
 // waiting image: the finished logo frame; playing still starts from 0:00
 render(1.4);ui();
 // try to start with sound; most browsers refuse until the visitor clicks, and then the film waits for that click
-const start=()=>{if(!reduce&&!/[?&]still\b/.test(location.search)){autoTry=true;play();}};
+// embedded on the landing page it never starts by itself: a click elsewhere on that page would
+// otherwise let it start talking as the visitor scrolls past
+const start=()=>{if(!reduce&&!/[?&]still\b/.test(location.search)&&!document.documentElement.classList.contains('embed')){autoTry=true;play();}};
 (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>setTimeout(start,500));
 })();
 </script>
